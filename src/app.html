@@ -1,0 +1,82 @@
+<template>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #007bff;
+    }
+    form {
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .fees {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .fees h5, .fees h6 {
+      margin: 5px 0;
+    }
+    .fees ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .fees li {
+      margin-bottom: 5px;
+    }
+    .error-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style> 
+
+    <div class="container">
+      <h1>WheelDeal</h1>
+      <form id="vehicleForm">
+        <label for="price">Base Price of the Vehicle:</label>
+        <input type="number" id="price" name="price" value.bind="model.basePrice" required>
+        <label for="type">Type of Vehicle:</label>
+        <input type="text" value.bind="model.vehicleType" id="type" name="type" required>
+        <button type="submit" click.delegate="calculatePrice()">Calculate</button>
+      </form>
+      <div class="error-message" if.bind="error" textcontent.bind="error" style="display: block;">
+      </div>
+      <div if.bind="response" class="fees" id="fees" style="display: block;">
+        <h4>Base Price of the Vehicle: $${model.basePrice}</h4>
+        <h4>Type of Vehicle: ${model.vehicleType}</h4>               
+        <ul id="feeDetails">
+          <li repeat.for="fee of response.feeDetails">
+            <span>
+              ${fee.name}: $${fee.amount}
+            </span>
+          </li>
+        </ul>
+        <h3>Total Price: $${response.totalPrice}</h3> 
+      </div>
+    </div>
+
+</template>
